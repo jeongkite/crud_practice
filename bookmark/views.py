@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from bookmark.forms import CategoryForm
+from bookmark.forms import CategoryForm, MarkForm
 
 from bookmark.models import Category, Mark
 
@@ -61,3 +61,40 @@ def cate_delete(request, pk):
     cate = get_object_or_404(Category, pk=pk)
     cate.delete()
     return redirect('bookmark:list')
+
+
+def mark_new(request):
+    if request.method == "POST":
+        form = MarkForm(request.POST)
+        if form.is_valid():
+            mark = form.save()
+            cate = mark.category
+            return redirect('bookmark:cate_detail', pk=cate.pk)
+    else:
+        form = MarkForm()
+    ctx = {
+        'form': form
+    }
+    return render(request, 'bookmark/form.html', context=ctx)
+
+
+def mark_edit(request, pk):
+    mark = get_object_or_404(Mark, pk=pk)
+    if request.method == "POST":
+        form = MarkForm(request.POST, instance=mark)
+        if form.is_valid():
+            mark = form.save()
+            cate = mark.category
+            return redirect('bookmark:cate_detail', pk=cate.pk)
+    else:
+        form = MarkForm(instance=mark)
+    ctx = {
+        'form': form
+    }
+    return render(request, 'bookmark/form.html', context=ctx)
+
+
+def mark_delete(request, pk):
+    mark = get_object_or_404(Mark, pk=pk)
+    mark.delete()
+    return (redirect('bookmark:list'))

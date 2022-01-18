@@ -13,8 +13,8 @@
     {% for m in marks %}
         <li>
             <a href="{{ m.url }}">{{ m.name }}</a>
-            <a href="#">수정</a>
-            <a href="#">삭제</a>
+            <a href="{% url 'bookmark:mark_edit' pk=m.pk %}">수정</a>
+            <a href="{% url 'bookmark:mark_delete' pk=m.pk %}">삭제</a>
         </li>
     {% endfor %}
 </ul>
