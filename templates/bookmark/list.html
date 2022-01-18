@@ -3,7 +3,7 @@
 {% block content %}
 
 {% for cate, marks in order_marks.items %}
-    <h3><a href="#">{{ cate.name }}</a></h3>
+    <h3><a href="{% url 'bookmark:cate_detail' pk=cate.pk %}">{{ cate.name }}</a></h3>
     <ul>
         {% for m in marks %}
             <li>

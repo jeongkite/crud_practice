@@ -8,5 +8,5 @@ admin.site.register(Category)
 @admin.register(Mark)
 class MarkAdmim(admin.ModelAdmin):
     list_display = ['name', 'url', 'category']
-    list_display_link = ['name']
+    list_display_links = ['name', 'category']
     search_fields = ['name', 'category__name']

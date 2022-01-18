@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Category {% endblock %}
+
+{% block content %}
+
+<h3>{{ cate.name }}</h3>
+<a href="{% url 'bookmark:cate_edit' pk=cate.pk %}">수정</a>
+<a href="{% url 'bookmark:cate_delete' pk=cate.pk %}">삭제</a>
+<p>{{ cate.desc }}</p>
+
+<ul>
+    {% for m in marks %}
+        <li>
+            <a href="{{ m.url }}">{{ m.name }}</a>
+            <a href="#">수정</a>
+            <a href="#">삭제</a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
